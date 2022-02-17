@@ -1,0 +1,5 @@
+@hostname = http://localhost:8000
+
+### Create spot type in parking
+post {{hostname}}/debug
+Content-Type: application/json
