@@ -1,5 +1,4 @@
 @hostname = http://localhost:8000
 
-### Create spot type in parking
+### Create spots. You can change amount of spots in constants/spots.constants.ts (SPOTS_AMOUNT)
 post {{hostname}}/debug
-Content-Type: application/json

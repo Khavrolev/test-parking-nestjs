@@ -11,6 +11,7 @@ import { Spot } from 'src/spots/spots.model';
 interface TransportCreationAttrs {
   plate: string;
   type: number;
+  spotId: number;
 }
 
 @Table({ tableName: 'transports' })
@@ -30,6 +31,7 @@ export class Transport extends Model<Transport, TransportCreationAttrs> {
   type: number;
 
   @ForeignKey(() => Spot)
+  @Column({ type: DataType.INTEGER, allowNull: false })
   spotId: number;
 
   @BelongsTo(() => Spot)

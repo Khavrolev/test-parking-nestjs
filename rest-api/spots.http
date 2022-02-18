@@ -1,0 +1,29 @@
+@hostname = http://localhost:8000
+
+### Create one spot. Input info is json with only one string 'type'. Type must be from SpotType (constants/spots.constants.ts)
+post {{hostname}}/spots
+Content-Type: application/json
+
+{
+    "type": "l"
+}
+
+### Get one spot by id. Input info is param @getid
+@getid = 3
+get {{hostname}}/spots/{{getid}}
+
+### Get all spots
+get {{hostname}}/spots
+
+### Update one spot. Update info is json with number 'id' and string 'type'
+put {{hostname}}/spots
+Content-Type: application/json
+
+{
+    "id": 1,
+    "type": "s"
+}
+
+### Delete one spot. Input info is param @deleteid
+@deleteid = 39
+delete {{hostname}}/spots/{{deleteid}}

@@ -10,10 +10,11 @@ export class DebugService {
     const initSpots = [];
     for (const key in SPOTS_AMOUNT) {
       for (let i = 0; i < SPOTS_AMOUNT[key]; i++) {
-        initSpots.push({ type: SpotType[key] });
+        initSpots.push({ type: [SpotType[key]] });
       }
     }
-    const spots = await this.spotsService.init(initSpots);
+
+    const spots = await this.spotsService.createManySpots(initSpots);
 
     return spots;
   }
