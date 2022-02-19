@@ -6,6 +6,17 @@ post {{hostname}}/transports
 Content-Type: application/json
 
 {
-    "type": "c",
-    "plate": "AA213A139"
+    "type": "m",
+    "plate": "AB247A138"
 }
+
+### Get one transport by plate. Input info is param @getplate
+@getplate = AC263A135
+get {{hostname}}/transports/{{getplate}}
+
+### Get all transports
+get {{hostname}}/transports
+
+### Delete one transport. Input info is param @deleteplate
+@deleteplate = AB247A138
+delete {{hostname}}/transports/{{deleteplate}}

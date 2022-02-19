@@ -2,6 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { TRANSPORT_SIZE } from 'src/constants/transports.constants';
 import { SpotsService } from 'src/spots/spots.service';
+import { DeleteTransportDto } from './dto/delete-transport.dto';
+import { GetTransportDto } from './dto/get-transport.dto';
 import { ParkTransportDto } from './dto/park-transport.dto';
 import { Transport } from './transports.model';
 
@@ -14,17 +16,54 @@ export class TransportsService {
 
   async parkTransport(dto: ParkTransportDto) {
     this.checkTypeFromEnum(dto.type);
-    await this.checkTransportByPlate(dto.plate);
+    const transport = await this.transportRepository.findOne({
+      where: { plate: dto.plate },
+    });
+
+    if (transport) {
+      throw new BadRequestException(
+        `There is transport with plate = ${dto.plate} in parking yet`,
+      );
+    }
 
     const transportNumericType = TRANSPORT_SIZE[dto.type];
 
-    ///decomposition
-    const avaliableSpot =
-      this.spotService.getSpotForTransport(transportNumericType);
-    ///decomposition
-    return avaliableSpot;
-    const input = { ...dto, type: transportNumericType, spotId: 35 };
-    const transport = this.transportRepository.create(input);
+    const avaliableSpots = await this.spotService.getAvaliableSpotForTransport(
+      transportNumericType,
+    );
+
+    if (avaliableSpots.length === 0) {
+      throw new BadRequestException(
+        `Parking is full, we don't have place for your transport!`,
+      );
+    }
+
+    const input = {
+      ...dto,
+      type: transportNumericType,
+      spotId: avaliableSpots[0].id,
+    };
+
+    const parkedTransport = await this.transportRepository.create(input);
+
+    return parkedTransport;
+  }
+
+  async getTransport(dto: GetTransportDto) {
+    const transport = await this.getTransportByPlate(dto.plate, true);
+    return transport;
+  }
+
+  async getAllTransports() {
+    const transports = await this.transportRepository.findAll({
+      include: { all: true },
+    });
+    return transports;
+  }
+
+  async deleteTransport(dto: DeleteTransportDto) {
+    const transport = await this.getTransportByPlate(dto.plate, true);
+    await transport.destroy();
 
     return transport;
   }
@@ -35,28 +74,17 @@ export class TransportsService {
     }
   }
 
-  private async checkTransportByPlate(plate: string) {
-    const transport = await this.transportRepository.findOne({
-      where: { plate },
-    });
-
-    if (transport) {
-      throw new BadRequestException(
-        `There is transport with plate = ${plate} in parking yet`,
-      );
-    }
-  }
-
-  private async getTransportByPlate(plate: string) {
-    const transport = await this.transportRepository.findOne({
-      where: { plate },
-    });
-
-    if (transport) {
-      throw new BadRequestException(
-        `There is transport with plate = ${plate} in parking yet`,
-      );
-    }
+  private async getTransportByPlate(plate: string, includeSpot = false) {
+    const transport = await this.transportRepository.findOne(
+      includeSpot
+        ? {
+            where: { plate },
+            include: { all: true },
+          }
+        : {
+            where: { plate },
+          },
+    );
 
     if (!transport) {
       throw new BadRequestException(

@@ -6,7 +6,7 @@ import { SPOT_SIZE } from 'src/constants/spots.constants';
 import { Transport } from 'src/transports/transports.model';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { GetSpotDto } from './dto/get-spot.dto';
-import { RemoveSpotDto } from './dto/remove-spot.dto';
+import { DeleteSpotDto } from './dto/delete-spot.dto';
 import { UpdateSpotDto } from './dto/update-spot.dto';
 import { Spot } from './spots.model';
 
@@ -44,7 +44,7 @@ export class SpotsService {
     return spots;
   }
 
-  async getSpotForTransport(transportType: number) {
+  async getAvaliableSpotForTransport(transportType: number) {
     const spots = await this.spotRepository.findAll({
       include: [
         {
@@ -77,7 +77,7 @@ export class SpotsService {
     return spot;
   }
 
-  async deleteSpot(dto: RemoveSpotDto) {
+  async deleteSpot(dto: DeleteSpotDto) {
     const spot = await this.getSpotById(dto.id, true);
     this.checkTransportOnSpot(spot?.transports);
 
@@ -116,7 +116,7 @@ export class SpotsService {
 
     if (transports.length > 0) {
       throw new BadRequestException(
-        `You can't mapipulate with spot, because there are some tronsport on spot`,
+        `You can't manipulate with spot, because there is some transport on spot`,
       );
     }
   }
