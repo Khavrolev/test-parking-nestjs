@@ -32,7 +32,7 @@ export class SpotsService {
   }
 
   async getSpot(dto: GetSpotDto) {
-    const spot = await this.getSpotById(dto.id, true);
+    const spot = await this.getSpotById(dto.id);
     return spot;
   }
 
@@ -63,7 +63,7 @@ export class SpotsService {
   }
 
   async updateSpot(dto: UpdateSpotDto) {
-    const spot = await this.getSpotById(dto.id, true);
+    const spot = await this.getSpotById(dto.id);
     this.checkTransportOnSpot(spot?.transports);
 
     spot.type = SPOT_SIZE[dto.type];
@@ -73,7 +73,7 @@ export class SpotsService {
   }
 
   async deleteSpot(dto: DeleteSpotDto) {
-    const spot = await this.getSpotById(dto.id, true);
+    const spot = await this.getSpotById(dto.id);
     this.checkTransportOnSpot(spot?.transports);
 
     await spot.destroy();
@@ -81,15 +81,10 @@ export class SpotsService {
     return spot;
   }
 
-  private async getSpotById(id: number, includeTransport = false) {
-    const spot = await this.spotRepository.findByPk(
-      id,
-      includeTransport
-        ? {
-            include: { all: true },
-          }
-        : undefined,
-    );
+  private async getSpotById(id: number) {
+    const spot = await this.spotRepository.findByPk(id, {
+      include: { all: true },
+    });
 
     if (!spot) {
       throw new BadRequestException(`No spot with id = '${id}' in parking`);

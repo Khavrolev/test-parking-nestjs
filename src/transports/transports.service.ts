@@ -49,7 +49,7 @@ export class TransportsService {
   }
 
   async getTransport(dto: GetTransportDto) {
-    const transport = await this.getTransportByPlate(dto.plate, true);
+    const transport = await this.getTransportByPlate(dto.plate);
     return transport;
   }
 
@@ -61,23 +61,17 @@ export class TransportsService {
   }
 
   async deleteTransport(dto: DeleteTransportDto) {
-    const transport = await this.getTransportByPlate(dto.plate, true);
+    const transport = await this.getTransportByPlate(dto.plate);
     await transport.destroy();
 
     return transport;
   }
 
-  private async getTransportByPlate(plate: string, includeSpot = false) {
-    const transport = await this.transportRepository.findOne(
-      includeSpot
-        ? {
-            where: { plate },
-            include: { all: true },
-          }
-        : {
-            where: { plate },
-          },
-    );
+  private async getTransportByPlate(plate: string) {
+    const transport = await this.transportRepository.findOne({
+      where: { plate },
+      include: { all: true },
+    });
 
     if (!transport) {
       throw new BadRequestException(
