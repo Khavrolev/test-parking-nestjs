@@ -21,8 +21,8 @@ export class SpotsService {
     return spot;
   }
 
-  async createManySpots(arrDto: CreateSpotDto[]) {
-    const input = arrDto.map((item) => {
+  async createManySpots(dtos: CreateSpotDto[]) {
+    const input = dtos.map((item) => {
       return { type: SPOT_SIZE[item.type] };
     });
 
