@@ -15,8 +15,6 @@ export class SpotsService {
   constructor(@InjectModel(Spot) private spotRepository: typeof Spot) {}
 
   async createSpot(dto: CreateSpotDto) {
-    this.checkTypeFromEnum(dto.type);
-
     const input = { type: SPOT_SIZE[dto.type] };
     const spot = await this.spotRepository.create(input);
 
@@ -25,7 +23,6 @@ export class SpotsService {
 
   async createManySpots(arrDto: CreateSpotDto[]) {
     const input = arrDto.map((item) => {
-      this.checkTypeFromEnum(item.type);
       return { type: SPOT_SIZE[item.type] };
     });
 
@@ -66,8 +63,6 @@ export class SpotsService {
   }
 
   async updateSpot(dto: UpdateSpotDto) {
-    this.checkTypeFromEnum(dto.type);
-
     const spot = await this.getSpotById(dto.id, true);
     this.checkTransportOnSpot(spot?.transports);
 
@@ -84,12 +79,6 @@ export class SpotsService {
     await spot.destroy();
 
     return spot;
-  }
-
-  private checkTypeFromEnum(type: string) {
-    if (!(type in SPOT_SIZE)) {
-      throw new BadRequestException(`No '${type}' spot's type in parking`);
-    }
   }
 
   private async getSpotById(id: number, includeTransport = false) {

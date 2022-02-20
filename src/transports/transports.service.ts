@@ -15,7 +15,6 @@ export class TransportsService {
   ) {}
 
   async parkTransport(dto: ParkTransportDto) {
-    this.checkTypeFromEnum(dto.type);
     const transport = await this.transportRepository.findOne({
       where: { plate: dto.plate },
     });
@@ -66,12 +65,6 @@ export class TransportsService {
     await transport.destroy();
 
     return transport;
-  }
-
-  private checkTypeFromEnum(type: string) {
-    if (!(type in TRANSPORT_SIZE)) {
-      throw new BadRequestException(`No '${type}' transport's type in parking`);
-    }
   }
 
   private async getTransportByPlate(plate: string, includeSpot = false) {

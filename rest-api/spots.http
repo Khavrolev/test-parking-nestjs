@@ -25,5 +25,5 @@ Content-Type: application/json
 }
 
 ### Delete one spot. Input info is param @deleteid
-@deleteid = 39
+@deleteid = 12
 delete {{hostname}}/spots/{{deleteid}}
