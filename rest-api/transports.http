@@ -18,5 +18,5 @@ get {{hostname}}/transports/{{getplate}}
 get {{hostname}}/transports
 
 ### Retrieve one transport. Input info is param @retrieve
-@retrieve = AB247A138
+@retrieve = AC562D144
 delete {{hostname}}/transports/{{retrieve}}
