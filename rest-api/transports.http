@@ -1,22 +1,22 @@
 @hostname = http://localhost:8000
 
-### Create one transport. Input info is json with only string 'type' and string 'plate'. 
+### Create one transport. Input info is json with string 'type' and string 'plate'. 
 ### Type must be from TransportType (transports/transports.constants.ts)
 post {{hostname}}/transports
 Content-Type: application/json
 
 {
     "type": "m",
-    "plate": "AB247A138"
+    "plate": "AC562D144"
 }
 
 ### Get one transport by plate. Input info is param @getplate
-@getplate = AC263A135
+@getplate = AB243A138
 get {{hostname}}/transports/{{getplate}}
 
 ### Get all transports
 get {{hostname}}/transports
 
-### Delete one transport. Input info is param @deleteplate
-@deleteplate = AB247A138
-delete {{hostname}}/transports/{{deleteplate}}
+### Retrieve one transport. Input info is param @retrieve
+@retrieve = AB247A138
+delete {{hostname}}/transports/{{retrieve}}

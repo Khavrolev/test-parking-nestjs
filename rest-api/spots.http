@@ -5,11 +5,11 @@ post {{hostname}}/spots
 Content-Type: application/json
 
 {
-    "type": "l"
+    "type": "s"
 }
 
 ### Get one spot by id. Input info is param @getid
-@getid = 3
+@getid = 12
 get {{hostname}}/spots/{{getid}}
 
 ### Get all spots
@@ -20,10 +20,10 @@ put {{hostname}}/spots
 Content-Type: application/json
 
 {
-    "id": 1,
+    "id": 12,
     "type": "s"
 }
 
 ### Delete one spot. Input info is param @deleteid
-@deleteid = 12
+@deleteid = 14
 delete {{hostname}}/spots/{{deleteid}}
