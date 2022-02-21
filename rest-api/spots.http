@@ -20,7 +20,7 @@ put {{hostname}}/spots
 Content-Type: application/json
 
 {
-    "id": 15,
+    "id": 12,
     "type": "s"
 }
 
