@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Get one spot by id. Input info is param @getid
-@getid = 12
+@getid = 10
 get {{hostname}}/spots/{{getid}}
 
 ### Get all spots
