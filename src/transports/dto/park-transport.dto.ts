@@ -5,7 +5,7 @@ export class ParkTransportDto {
   @IsEnum(TransportType, {
     message: `Value must be '${TransportType.motocycle}' or '${TransportType.car}' or '${TransportType.bus}'`,
   })
-  readonly type: string;
+  readonly type: TransportType;
 
   @IsString({ message: `Field 'plate' must be string` })
   readonly plate: string;

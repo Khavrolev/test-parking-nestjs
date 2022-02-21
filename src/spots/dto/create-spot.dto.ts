@@ -6,5 +6,5 @@ export class CreateSpotDto {
   @IsEnum(SpotType, {
     message: `Value must be '${SpotType.small}' or '${SpotType.medium}' or '${SpotType.large}'`,
   })
-  readonly type: string;
+  readonly type: SpotType;
 }
