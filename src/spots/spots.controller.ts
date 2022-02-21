@@ -22,7 +22,7 @@ export class SpotsController {
     return this.spotService.createSpot(dto);
   }
 
-  @Get('/:id')
+  @Get(':id')
   getSpot(@Param() dto: GetSpotDto) {
     return this.spotService.getSpot(dto);
   }
@@ -37,7 +37,7 @@ export class SpotsController {
     return this.spotService.updateSpot(dto);
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   deleteSpot(@Param() dto: DeleteSpotDto) {
     return this.spotService.deleteSpot(dto);
   }

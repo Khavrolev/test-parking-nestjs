@@ -13,7 +13,7 @@ export class TransportsController {
     return this.transportService.parkTransport(dto);
   }
 
-  @Get('/:plate')
+  @Get(':plate')
   getTransport(@Param() dto: GetTransportDto) {
     return this.transportService.getTransport(dto);
   }
@@ -23,7 +23,7 @@ export class TransportsController {
     return this.transportService.getAllTransports();
   }
 
-  @Delete('/:plate')
+  @Delete(':plate')
   deleteSpot(@Param() dto: DeleteTransportDto) {
     return this.transportService.deleteTransport(dto);
   }
