@@ -20,8 +20,6 @@ export class DebugService {
       }
     }
 
-    const spots = await this.spotsService.createManySpots(initSpots);
-
-    return spots;
+    return await this.spotsService.createManySpots(initSpots);
   }
 }

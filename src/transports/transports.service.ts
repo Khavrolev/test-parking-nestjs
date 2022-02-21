@@ -43,21 +43,17 @@ export class TransportsService {
       spotId: availableSpots[0].id,
     };
 
-    const parkedTransport = await this.transportRepository.create(input);
-
-    return parkedTransport;
+    return await this.transportRepository.create(input);
   }
 
   async getTransport(dto: GetTransportDto) {
-    const transport = await this.getTransportByPlate(dto.plate);
-    return transport;
+    return await this.getTransportByPlate(dto.plate);
   }
 
   async getAllTransports() {
-    const transports = await this.transportRepository.findAll({
+    return await this.transportRepository.findAll({
       include: { all: true },
     });
-    return transports;
   }
 
   async deleteTransport(dto: DeleteTransportDto) {

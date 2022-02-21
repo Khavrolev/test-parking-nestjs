@@ -18,9 +18,7 @@ export class SpotsService {
 
   async createSpot(dto: CreateSpotDto) {
     const input = { size: SPOT_SIZE[dto.type] };
-    const spot = await this.spotRepository.create(input);
-
-    return spot;
+    return await this.spotRepository.create(input);
   }
 
   async createManySpots(dtos: CreateSpotDto[]) {
@@ -28,23 +26,19 @@ export class SpotsService {
       return { size: SPOT_SIZE[item.type] };
     });
 
-    const spots = await this.spotRepository.bulkCreate(input);
-
-    return spots;
+    return await this.spotRepository.bulkCreate(input);
   }
 
   async getSpot(dto: GetSpotDto) {
-    const spot = await this.getSpotById(dto.id);
-    return spot;
+    return await this.getSpotById(dto.id);
   }
 
   async getAllSpots() {
-    const spots = await this.spotRepository.findAll({ include: { all: true } });
-    return spots;
+    return await this.spotRepository.findAll({ include: { all: true } });
   }
 
   async getAvaliableSpotForTransport(transportType: number) {
-    const spots = await this.spotRepository.findAll({
+    return await this.spotRepository.findAll({
       include: [
         {
           model: Transport,
@@ -60,8 +54,6 @@ export class SpotsService {
       ),
       order: ['size', 'id'],
     });
-
-    return spots;
   }
 
   async updateSpot(dto: UpdateSpotDto) {
@@ -69,9 +61,8 @@ export class SpotsService {
     this.checkTransportOnSpot(spot?.transports);
 
     spot.size = SPOT_SIZE[dto.type];
-    await spot.save();
 
-    return spot;
+    return await spot.save();
   }
 
   async retrieveSpot(dto: RetrieveSpotDto) {
