@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { TRANSPORT_SIZE } from 'src/constants/transports.constants';
 import { SpotsService } from 'src/spots/spots.service';
@@ -70,7 +74,7 @@ export class TransportsService {
     });
 
     if (!transport) {
-      throw new BadRequestException(
+      throw new NotFoundException(
         `No transport with plate = '${plate}' in parking`,
       );
     }

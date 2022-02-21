@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
@@ -80,7 +84,7 @@ export class SpotsService {
     });
 
     if (!spot) {
-      throw new BadRequestException(`No spot with id = '${id}' in parking`);
+      throw new NotFoundException(`No spot with id = '${id}' in parking`);
     }
 
     return spot;
