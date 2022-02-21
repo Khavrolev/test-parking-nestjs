@@ -25,10 +25,10 @@ export class TransportsService {
       );
     }
 
-    const transportNumericType = TRANSPORT_SIZE[dto.type];
+    const transportSize = TRANSPORT_SIZE[dto.type];
 
     const avaliableSpots = await this.spotService.getAvaliableSpotForTransport(
-      transportNumericType,
+      transportSize,
     );
 
     if (avaliableSpots.length === 0) {
@@ -39,7 +39,7 @@ export class TransportsService {
 
     const input = {
       ...dto,
-      size: transportNumericType,
+      size: transportSize,
       spotId: avaliableSpots[0].id,
     };
 
