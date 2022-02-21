@@ -47,11 +47,11 @@ export class TransportsService {
       spotId: availableSpots[0].id,
     };
 
-    return await this.transportModel.create(input);
+    return this.transportModel.create(input);
   }
 
   async getTransport(dto: GetTransportDto) {
-    return await this.getTransportByPlate(dto.plate);
+    return this.getTransportByPlate(dto.plate);
   }
 
   async getAllTransports() {

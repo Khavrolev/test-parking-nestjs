@@ -20,7 +20,7 @@ export class SpotsService {
 
   async createSpot(dto: CreateSpotDto) {
     const input = { size: SPOT_SIZE[dto.type] };
-    return await this.spotModel.create(input);
+    return this.spotModel.create(input);
   }
 
   async createManySpots(dtos: CreateSpotDto[]) {
@@ -28,15 +28,15 @@ export class SpotsService {
       return { size: SPOT_SIZE[item.type] };
     });
 
-    return await this.spotModel.bulkCreate(input);
+    return this.spotModel.bulkCreate(input);
   }
 
   async getSpot(dto: GetSpotDto) {
-    return await this.getSpotById(dto.id);
+    return this.getSpotById(dto.id);
   }
 
   async getAllSpots() {
-    return await this.spotModel.findAll({ include: { all: true } });
+    return this.spotModel.findAll({ include: { all: true } });
   }
 
   async getAvaliableSpotForTransport(transportType: number) {
@@ -64,7 +64,7 @@ export class SpotsService {
 
     spot.size = SPOT_SIZE[dto.type];
 
-    return await spot.save();
+    return spot.save();
   }
 
   async retrieveSpot(dto: RetrieveSpotDto) {

@@ -20,6 +20,6 @@ export class DebugService {
       }
     }
 
-    return await this.spotsService.createManySpots(initSpots);
+    return this.spotsService.createManySpots(initSpots);
   }
 }
