@@ -1,11 +1,11 @@
 export enum TransportType {
-  m = 'm',
-  c = 'c',
-  b = 'b',
+  motocycle = 'm',
+  car = 'c',
+  bus = 'b',
 }
 
 export const TRANSPORT_SIZE = {
-  [TransportType.m]: 1,
-  [TransportType.c]: 2,
-  [TransportType.b]: 4,
+  [TransportType.motocycle]: 1,
+  [TransportType.car]: 2,
+  [TransportType.bus]: 4,
 };

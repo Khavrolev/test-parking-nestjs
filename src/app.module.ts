@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Spot } from './spots/spots.model';
+import { Spot } from './models/spots.model';
 import { SpotsModule } from './spots/spots.module';
-import { Transport } from './transports/transports.model';
+import { Transport } from './models/transports.model';
 import { TransportsModule } from './transports/transports.module';
 import { DebugModule } from './debug/debug.module';
 

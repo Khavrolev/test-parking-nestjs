@@ -6,7 +6,7 @@ import { TransportsService } from './transports.service';
 
 @Controller('transports')
 export class TransportsController {
-  constructor(private transportService: TransportsService) {}
+  constructor(private readonly transportService: TransportsService) {}
 
   @Post()
   parkTransport(@Body() dto: ParkTransportDto) {

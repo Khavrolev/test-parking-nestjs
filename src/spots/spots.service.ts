@@ -1,48 +1,46 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { SPOT_SIZE } from 'src/constants/spots.constants';
-import { Transport } from 'src/transports/transports.model';
+import { Transport } from 'src/models/transports.model';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { GetSpotDto } from './dto/get-spot.dto';
-import { DeleteSpotDto } from './dto/delete-spot.dto';
+import { RetrieveSpotDto } from './dto/retrieve-spot.dto';
 import { UpdateSpotDto } from './dto/update-spot.dto';
-import { Spot } from './spots.model';
+import { Spot } from '../models/spots.model';
 
 @Injectable()
 export class SpotsService {
-  constructor(@InjectModel(Spot) private spotRepository: typeof Spot) {}
+  constructor(@InjectModel(Spot) private readonly spotModel: typeof Spot) {}
 
   async createSpot(dto: CreateSpotDto) {
-    const input = { type: SPOT_SIZE[dto.type] };
-    const spot = await this.spotRepository.create(input);
-
-    return spot;
+    const input = { size: SPOT_SIZE[dto.type] };
+    return this.spotModel.create(input);
   }
 
   async createManySpots(dtos: CreateSpotDto[]) {
     const input = dtos.map((item) => {
-      return { type: SPOT_SIZE[item.type] };
+      return { size: SPOT_SIZE[item.type] };
     });
 
-    const spots = await this.spotRepository.bulkCreate(input);
-
-    return spots;
+    return this.spotModel.bulkCreate(input);
   }
 
   async getSpot(dto: GetSpotDto) {
-    const spot = await this.getSpotById(dto.id);
-    return spot;
+    return this.getSpotById(dto.id);
   }
 
   async getAllSpots() {
-    const spots = await this.spotRepository.findAll({ include: { all: true } });
-    return spots;
+    return this.spotModel.findAll({ include: { all: true } });
   }
 
   async getAvaliableSpotForTransport(transportType: number) {
-    const spots = await this.spotRepository.findAll({
+    return await this.spotModel.findAll({
       include: [
         {
           model: Transport,
@@ -52,27 +50,24 @@ export class SpotsService {
       group: ['Spot.id'],
       having: Sequelize.where(
         Sequelize.literal(
-          '"Spot"."type" - COALESCE(SUM("transports"."type"), 0)',
+          '"Spot"."size" - COALESCE(SUM("transports"."size"), 0)',
         ),
         { [Op.gte]: transportType },
       ),
-      order: ['type', 'id'],
+      order: ['size', 'id'],
     });
-
-    return spots;
   }
 
   async updateSpot(dto: UpdateSpotDto) {
     const spot = await this.getSpotById(dto.id);
     this.checkTransportOnSpot(spot?.transports);
 
-    spot.type = SPOT_SIZE[dto.type];
-    await spot.save();
+    spot.size = SPOT_SIZE[dto.type];
 
-    return spot;
+    return spot.save();
   }
 
-  async deleteSpot(dto: DeleteSpotDto) {
+  async retrieveSpot(dto: RetrieveSpotDto) {
     const spot = await this.getSpotById(dto.id);
     this.checkTransportOnSpot(spot?.transports);
 
@@ -82,12 +77,12 @@ export class SpotsService {
   }
 
   private async getSpotById(id: number) {
-    const spot = await this.spotRepository.findByPk(id, {
+    const spot = await this.spotModel.findByPk(id, {
       include: { all: true },
     });
 
     if (!spot) {
-      throw new BadRequestException(`No spot with id = '${id}' in parking`);
+      throw new NotFoundException(`No spot with id = '${id}' in parking`);
     }
 
     return spot;

@@ -12,7 +12,7 @@ docker-compose up -d
 npm run start
 ```
 
-- There is debug module, where you can initialize spots (check rest-api/init.http). Use variable SPOTS_AMOUNT in src/constants/spots.constants.ts to configure amount of spots;
+- There is debug module, where you can initialize spots (check rest-api/init.http). Use variable SPOTS_AMOUNT in src/debug/debug.service.ts to configure amount of spots;
 
 - Size of spots and transports are configurable, check variable SPOT_SIZE in src/constants/spots.constants.ts and variable TRANSPORT_SIZE in src/transports/transports.constants.ts;
 

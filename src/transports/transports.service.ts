@@ -1,21 +1,25 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { TRANSPORT_SIZE } from 'src/constants/transports.constants';
 import { SpotsService } from 'src/spots/spots.service';
 import { DeleteTransportDto } from './dto/delete-transport.dto';
 import { GetTransportDto } from './dto/get-transport.dto';
 import { ParkTransportDto } from './dto/park-transport.dto';
-import { Transport } from './transports.model';
+import { Transport } from '../models/transports.model';
 
 @Injectable()
 export class TransportsService {
   constructor(
-    @InjectModel(Transport) private transportRepository: typeof Transport,
-    private spotService: SpotsService,
+    @InjectModel(Transport) private transportModel: typeof Transport,
+    private readonly spotService: SpotsService,
   ) {}
 
   async parkTransport(dto: ParkTransportDto) {
-    const transport = await this.transportRepository.findOne({
+    const transport = await this.transportModel.findOne({
       where: { plate: dto.plate },
     });
 
@@ -25,13 +29,13 @@ export class TransportsService {
       );
     }
 
-    const transportNumericType = TRANSPORT_SIZE[dto.type];
+    const transportSize = TRANSPORT_SIZE[dto.type];
 
-    const avaliableSpots = await this.spotService.getAvaliableSpotForTransport(
-      transportNumericType,
+    const availableSpots = await this.spotService.getAvaliableSpotForTransport(
+      transportSize,
     );
 
-    if (avaliableSpots.length === 0) {
+    if (availableSpots.length === 0) {
       throw new BadRequestException(
         `Parking is full, we don't have place for your transport!`,
       );
@@ -39,25 +43,21 @@ export class TransportsService {
 
     const input = {
       ...dto,
-      type: transportNumericType,
-      spotId: avaliableSpots[0].id,
+      size: transportSize,
+      spotId: availableSpots[0].id,
     };
 
-    const parkedTransport = await this.transportRepository.create(input);
-
-    return parkedTransport;
+    return this.transportModel.create(input);
   }
 
   async getTransport(dto: GetTransportDto) {
-    const transport = await this.getTransportByPlate(dto.plate);
-    return transport;
+    return this.getTransportByPlate(dto.plate);
   }
 
   async getAllTransports() {
-    const transports = await this.transportRepository.findAll({
+    return await this.transportModel.findAll({
       include: { all: true },
     });
-    return transports;
   }
 
   async deleteTransport(dto: DeleteTransportDto) {
@@ -68,13 +68,13 @@ export class TransportsService {
   }
 
   private async getTransportByPlate(plate: string) {
-    const transport = await this.transportRepository.findOne({
+    const transport = await this.transportModel.findOne({
       where: { plate },
       include: { all: true },
     });
 
     if (!transport) {
-      throw new BadRequestException(
+      throw new NotFoundException(
         `No transport with plate = '${plate}' in parking`,
       );
     }

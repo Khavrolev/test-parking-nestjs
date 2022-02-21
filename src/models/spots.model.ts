@@ -1,8 +1,8 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { Transport } from 'src/transports/transports.model';
+import { Transport } from 'src/models/transports.model';
 
-export interface SpotCreationAttrs {
-  type: number;
+interface SpotCreationAttrs {
+  size: number;
 }
 
 @Table({ tableName: 'spots' })
@@ -16,7 +16,7 @@ export class Spot extends Model<Spot, SpotCreationAttrs> {
   id: number;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
-  type: number;
+  size: number;
 
   @HasMany(() => Transport)
   transports: Transport[];

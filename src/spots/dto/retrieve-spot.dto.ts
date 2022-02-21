@@ -1,6 +1,6 @@
 import { IsNumberString } from 'class-validator';
 
-export class GetSpotDto {
+export class RetrieveSpotDto {
   @IsNumberString()
   readonly id: number;
 }

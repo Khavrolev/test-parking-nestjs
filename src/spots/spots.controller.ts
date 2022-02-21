@@ -9,13 +9,13 @@ import {
 } from '@nestjs/common';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { GetSpotDto } from './dto/get-spot.dto';
-import { DeleteSpotDto } from './dto/delete-spot.dto';
+import { RetrieveSpotDto } from './dto/retrieve-spot.dto';
 import { UpdateSpotDto } from './dto/update-spot.dto';
 import { SpotsService } from './spots.service';
 
 @Controller('spots')
 export class SpotsController {
-  constructor(private spotService: SpotsService) {}
+  constructor(private readonly spotService: SpotsService) {}
 
   @Post()
   createSpot(@Body() dto: CreateSpotDto) {
@@ -38,7 +38,7 @@ export class SpotsController {
   }
 
   @Delete(':id')
-  deleteSpot(@Param() dto: DeleteSpotDto) {
-    return this.spotService.deleteSpot(dto);
+  retrieveSpot(@Param() dto: RetrieveSpotDto) {
+    return this.spotService.retrieveSpot(dto);
   }
 }

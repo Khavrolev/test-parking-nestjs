@@ -6,11 +6,11 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Spot } from 'src/spots/spots.model';
+import { Spot } from 'src/models/spots.model';
 
 interface TransportCreationAttrs {
   plate: string;
-  type: number;
+  size: number;
   spotId: number;
 }
 
@@ -28,7 +28,7 @@ export class Transport extends Model<Transport, TransportCreationAttrs> {
   plate: string;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
-  type: number;
+  size: number;
 
   @ForeignKey(() => Spot)
   @Column({ type: DataType.INTEGER, allowNull: false })
