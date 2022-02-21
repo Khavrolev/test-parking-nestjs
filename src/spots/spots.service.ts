@@ -15,7 +15,7 @@ export class SpotsService {
   constructor(@InjectModel(Spot) private spotRepository: typeof Spot) {}
 
   async createSpot(dto: CreateSpotDto) {
-    const input = { type: SPOT_SIZE[dto.type] };
+    const input = { size: SPOT_SIZE[dto.type] };
     const spot = await this.spotRepository.create(input);
 
     return spot;
@@ -23,7 +23,7 @@ export class SpotsService {
 
   async createManySpots(dtos: CreateSpotDto[]) {
     const input = dtos.map((item) => {
-      return { type: SPOT_SIZE[item.type] };
+      return { size: SPOT_SIZE[item.type] };
     });
 
     const spots = await this.spotRepository.bulkCreate(input);
@@ -66,7 +66,7 @@ export class SpotsService {
     const spot = await this.getSpotById(dto.id);
     this.checkTransportOnSpot(spot?.transports);
 
-    spot.type = SPOT_SIZE[dto.type];
+    spot.size = SPOT_SIZE[dto.type];
     await spot.save();
 
     return spot;

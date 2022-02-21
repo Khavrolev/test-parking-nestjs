@@ -39,7 +39,7 @@ export class TransportsService {
 
     const input = {
       ...dto,
-      type: transportNumericType,
+      size: transportNumericType,
       spotId: avaliableSpots[0].id,
     };
 

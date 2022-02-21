@@ -10,7 +10,7 @@ import { Spot } from 'src/spots/spots.model';
 
 interface TransportCreationAttrs {
   plate: string;
-  type: number;
+  size: number;
   spotId: number;
 }
 
@@ -28,7 +28,7 @@ export class Transport extends Model<Transport, TransportCreationAttrs> {
   plate: string;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
-  type: number;
+  size: number;
 
   @ForeignKey(() => Spot)
   @Column({ type: DataType.INTEGER, allowNull: false })
