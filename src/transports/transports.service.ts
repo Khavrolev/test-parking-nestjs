@@ -27,11 +27,11 @@ export class TransportsService {
 
     const transportSize = TRANSPORT_SIZE[dto.type];
 
-    const avaliableSpots = await this.spotService.getAvaliableSpotForTransport(
+    const availableSpots = await this.spotService.getAvaliableSpotForTransport(
       transportSize,
     );
 
-    if (avaliableSpots.length === 0) {
+    if (availableSpots.length === 0) {
       throw new BadRequestException(
         `Parking is full, we don't have place for your transport!`,
       );
@@ -40,7 +40,7 @@ export class TransportsService {
     const input = {
       ...dto,
       size: transportSize,
-      spotId: avaliableSpots[0].id,
+      spotId: availableSpots[0].id,
     };
 
     const parkedTransport = await this.transportRepository.create(input);
