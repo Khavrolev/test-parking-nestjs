@@ -15,7 +15,7 @@ import { SpotsService } from './spots.service';
 
 @Controller('spots')
 export class SpotsController {
-  constructor(private spotService: SpotsService) {}
+  constructor(private readonly spotService: SpotsService) {}
 
   @Post()
   createSpot(@Body() dto: CreateSpotDto) {

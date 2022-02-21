@@ -12,7 +12,9 @@ import { Spot } from './spots.model';
 
 @Injectable()
 export class SpotsService {
-  constructor(@InjectModel(Spot) private spotRepository: typeof Spot) {}
+  constructor(
+    @InjectModel(Spot) private readonly spotRepository: typeof Spot,
+  ) {}
 
   async createSpot(dto: CreateSpotDto) {
     const input = { size: SPOT_SIZE[dto.type] };

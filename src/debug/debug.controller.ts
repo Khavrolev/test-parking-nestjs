@@ -3,7 +3,7 @@ import { DebugService } from './debug.service';
 
 @Controller('debug')
 export class DebugController {
-  constructor(private debugService: DebugService) {}
+  constructor(private readonly debugService: DebugService) {}
 
   @Post('/init')
   init() {

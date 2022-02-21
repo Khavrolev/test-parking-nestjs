@@ -4,7 +4,7 @@ import { SpotsService } from 'src/spots/spots.service';
 
 @Injectable()
 export class DebugService {
-  constructor(private spotsService: SpotsService) {}
+  constructor(private readonly spotsService: SpotsService) {}
 
   async init() {
     const initSpots = [];

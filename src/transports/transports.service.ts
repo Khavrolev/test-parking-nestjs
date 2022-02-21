@@ -11,7 +11,7 @@ import { Transport } from './transports.model';
 export class TransportsService {
   constructor(
     @InjectModel(Transport) private transportRepository: typeof Transport,
-    private spotService: SpotsService,
+    private readonly spotService: SpotsService,
   ) {}
 
   async parkTransport(dto: ParkTransportDto) {
