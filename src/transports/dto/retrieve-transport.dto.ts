@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class DeleteTransportDto {
+export class RetrieveTransportDto {
   @IsString()
   readonly plate: string;
 }

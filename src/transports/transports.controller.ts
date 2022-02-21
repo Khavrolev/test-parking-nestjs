@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { DeleteTransportDto } from './dto/delete-transport.dto';
+import { RetrieveTransportDto } from './dto/retrieve-transport.dto';
 import { GetTransportDto } from './dto/get-transport.dto';
 import { ParkTransportDto } from './dto/park-transport.dto';
 import { TransportsService } from './transports.service';
@@ -24,7 +24,7 @@ export class TransportsController {
   }
 
   @Delete(':plate')
-  deleteSpot(@Param() dto: DeleteTransportDto) {
-    return this.transportService.deleteTransport(dto);
+  retrieveSpot(@Param() dto: RetrieveTransportDto) {
+    return this.transportService.retrieveTransport(dto);
   }
 }

@@ -6,7 +6,7 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { TRANSPORT_SIZE } from 'src/constants/transports.constants';
 import { SpotsService } from 'src/spots/spots.service';
-import { DeleteTransportDto } from './dto/delete-transport.dto';
+import { RetrieveTransportDto } from './dto/retrieve-transport.dto';
 import { GetTransportDto } from './dto/get-transport.dto';
 import { ParkTransportDto } from './dto/park-transport.dto';
 import { Transport } from '../models/transports.model';
@@ -60,7 +60,7 @@ export class TransportsService {
     });
   }
 
-  async deleteTransport(dto: DeleteTransportDto) {
+  async retrieveTransport(dto: RetrieveTransportDto) {
     const transport = await this.getTransportByPlate(dto.plate);
     await transport.destroy();
 

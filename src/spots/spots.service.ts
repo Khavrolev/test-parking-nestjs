@@ -10,7 +10,7 @@ import { SPOT_SIZE } from 'src/constants/spots.constants';
 import { Transport } from 'src/models/transports.model';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { GetSpotDto } from './dto/get-spot.dto';
-import { RetrieveSpotDto } from './dto/retrieve-spot.dto';
+import { DeleteSpotDto } from './dto/delete-spot.dto';
 import { UpdateSpotDto } from './dto/update-spot.dto';
 import { Spot } from '../models/spots.model';
 
@@ -67,7 +67,7 @@ export class SpotsService {
     return spot.save();
   }
 
-  async retrieveSpot(dto: RetrieveSpotDto) {
+  async deleteSpot(dto: DeleteSpotDto) {
     const spot = await this.getSpotById(dto.id);
     this.checkTransportOnSpot(spot?.transports);
 
