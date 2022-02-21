@@ -94,10 +94,6 @@ export class SpotsService {
   }
 
   private checkTransportOnSpot(transports) {
-    if (transports === undefined) {
-      throw new BadRequestException(`Transport array is undefined`);
-    }
-
     if (transports.length > 0) {
       throw new BadRequestException(
         `You can't manipulate with spot, because there is some transport on spot`,
