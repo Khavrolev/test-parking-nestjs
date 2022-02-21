@@ -1,4 +1,4 @@
 @hostname = http://localhost:8000
 
 ### Create spots. You can change amount of spots in constants/spots.constants.ts (SPOTS_AMOUNT)
-post {{hostname}}/debug
+post {{hostname}}/debug/init

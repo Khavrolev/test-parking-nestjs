@@ -5,7 +5,7 @@ import { DebugService } from './debug.service';
 export class DebugController {
   constructor(private debugService: DebugService) {}
 
-  @Post()
+  @Post('/init')
   init() {
     return this.debugService.init();
   }
