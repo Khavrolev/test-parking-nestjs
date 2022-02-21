@@ -54,11 +54,11 @@ export class SpotsService {
       group: ['Spot.id'],
       having: Sequelize.where(
         Sequelize.literal(
-          '"Spot"."type" - COALESCE(SUM("transports"."type"), 0)',
+          '"Spot"."size" - COALESCE(SUM("transports"."size"), 0)',
         ),
         { [Op.gte]: transportType },
       ),
-      order: ['type', 'id'],
+      order: ['size', 'id'],
     });
 
     return spots;

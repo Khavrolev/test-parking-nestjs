@@ -3,7 +3,7 @@ import { TransportType } from 'src/constants/transports.constants';
 
 export class ParkTransportDto {
   @IsEnum(TransportType, {
-    message: `Value must be '${TransportType.m}' or '${TransportType.c}' or '${TransportType.b}'`,
+    message: `Value must be '${TransportType.motocycle}' or '${TransportType.car}' or '${TransportType.bus}'`,
   })
   readonly type: string;
 

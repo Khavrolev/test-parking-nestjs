@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { SPOTS_AMOUNT, SpotType } from 'src/constants/spots.constants';
+import { SpotType } from 'src/constants/spots.constants';
 import { SpotsService } from 'src/spots/spots.service';
+
+const SPOTS_AMOUNT = {
+  [SpotType.small]: 3,
+  [SpotType.medium]: 5,
+  [SpotType.large]: 3,
+};
 
 @Injectable()
 export class DebugService {
@@ -8,9 +14,9 @@ export class DebugService {
 
   async init() {
     const initSpots = [];
-    for (const key in SPOTS_AMOUNT) {
-      for (let i = 0; i < SPOTS_AMOUNT[key]; i++) {
-        initSpots.push({ type: [SpotType[key]] });
+    for (const type in SPOTS_AMOUNT) {
+      for (let i = 0; i < SPOTS_AMOUNT[type]; i++) {
+        initSpots.push({ type: type });
       }
     }
 

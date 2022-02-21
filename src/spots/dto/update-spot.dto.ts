@@ -6,7 +6,7 @@ export class UpdateSpotDto {
   readonly id: number;
 
   @IsEnum(SpotType, {
-    message: `Value must be '${SpotType.l}' or '${SpotType.m}' or '${SpotType.l}'`,
+    message: `Value must be '${SpotType.small}' or '${SpotType.medium}' or '${SpotType.large}'`,
   })
   readonly type: string;
 }
