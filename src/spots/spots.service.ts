@@ -16,13 +16,11 @@ import { Spot } from '../models/spots.model';
 
 @Injectable()
 export class SpotsService {
-  constructor(
-    @InjectModel(Spot) private readonly spotRepository: typeof Spot,
-  ) {}
+  constructor(@InjectModel(Spot) private readonly spotModel: typeof Spot) {}
 
   async createSpot(dto: CreateSpotDto) {
     const input = { size: SPOT_SIZE[dto.type] };
-    return await this.spotRepository.create(input);
+    return await this.spotModel.create(input);
   }
 
   async createManySpots(dtos: CreateSpotDto[]) {
@@ -30,7 +28,7 @@ export class SpotsService {
       return { size: SPOT_SIZE[item.type] };
     });
 
-    return await this.spotRepository.bulkCreate(input);
+    return await this.spotModel.bulkCreate(input);
   }
 
   async getSpot(dto: GetSpotDto) {
@@ -38,11 +36,11 @@ export class SpotsService {
   }
 
   async getAllSpots() {
-    return await this.spotRepository.findAll({ include: { all: true } });
+    return await this.spotModel.findAll({ include: { all: true } });
   }
 
   async getAvaliableSpotForTransport(transportType: number) {
-    return await this.spotRepository.findAll({
+    return await this.spotModel.findAll({
       include: [
         {
           model: Transport,
@@ -79,7 +77,7 @@ export class SpotsService {
   }
 
   private async getSpotById(id: number) {
-    const spot = await this.spotRepository.findByPk(id, {
+    const spot = await this.spotModel.findByPk(id, {
       include: { all: true },
     });
 

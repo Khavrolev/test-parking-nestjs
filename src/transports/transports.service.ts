@@ -14,12 +14,12 @@ import { Transport } from '../models/transports.model';
 @Injectable()
 export class TransportsService {
   constructor(
-    @InjectModel(Transport) private transportRepository: typeof Transport,
+    @InjectModel(Transport) private transportModel: typeof Transport,
     private readonly spotService: SpotsService,
   ) {}
 
   async parkTransport(dto: ParkTransportDto) {
-    const transport = await this.transportRepository.findOne({
+    const transport = await this.transportModel.findOne({
       where: { plate: dto.plate },
     });
 
@@ -47,7 +47,7 @@ export class TransportsService {
       spotId: availableSpots[0].id,
     };
 
-    return await this.transportRepository.create(input);
+    return await this.transportModel.create(input);
   }
 
   async getTransport(dto: GetTransportDto) {
@@ -55,7 +55,7 @@ export class TransportsService {
   }
 
   async getAllTransports() {
-    return await this.transportRepository.findAll({
+    return await this.transportModel.findAll({
       include: { all: true },
     });
   }
@@ -68,7 +68,7 @@ export class TransportsService {
   }
 
   private async getTransportByPlate(plate: string) {
-    const transport = await this.transportRepository.findOne({
+    const transport = await this.transportModel.findOne({
       where: { plate },
       include: { all: true },
     });
