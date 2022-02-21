@@ -16,7 +16,7 @@ export class DebugService {
     const initSpots = [];
     for (const type in SPOTS_AMOUNT) {
       for (let i = 0; i < SPOTS_AMOUNT[type]; i++) {
-        initSpots.push({ type: type });
+        initSpots.push({ type });
       }
     }
 
