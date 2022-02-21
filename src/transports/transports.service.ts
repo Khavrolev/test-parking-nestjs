@@ -9,7 +9,7 @@ import { SpotsService } from 'src/spots/spots.service';
 import { DeleteTransportDto } from './dto/delete-transport.dto';
 import { GetTransportDto } from './dto/get-transport.dto';
 import { ParkTransportDto } from './dto/park-transport.dto';
-import { Transport } from './transports.model';
+import { Transport } from '../models/transports.model';
 
 @Injectable()
 export class TransportsService {
