@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { GetSpotDto } from './dto/get-spot.dto';
@@ -19,12 +18,12 @@ export class SpotsController {
   constructor(private spotService: SpotsService) {}
 
   @Post()
-  createSpot(@Body(new ValidationPipe()) dto: CreateSpotDto) {
+  createSpot(@Body() dto: CreateSpotDto) {
     return this.spotService.createSpot(dto);
   }
 
   @Get('/:id')
-  getSpot(@Param(new ValidationPipe()) dto: GetSpotDto) {
+  getSpot(@Param() dto: GetSpotDto) {
     return this.spotService.getSpot(dto);
   }
 
@@ -34,12 +33,12 @@ export class SpotsController {
   }
 
   @Put()
-  updateSpot(@Body(new ValidationPipe()) dto: UpdateSpotDto) {
+  updateSpot(@Body() dto: UpdateSpotDto) {
     return this.spotService.updateSpot(dto);
   }
 
   @Delete('/:id')
-  deleteSpot(@Param(new ValidationPipe()) dto: DeleteSpotDto) {
+  deleteSpot(@Param() dto: DeleteSpotDto) {
     return this.spotService.deleteSpot(dto);
   }
 }
