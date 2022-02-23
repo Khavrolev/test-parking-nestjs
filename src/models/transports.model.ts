@@ -6,7 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Spot } from 'src/models/spots.model';
+import { Spot } from './spots.model';
 
 interface TransportCreationAttrs {
   plate: string;

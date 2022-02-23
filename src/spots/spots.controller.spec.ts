@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SpotType, SPOT_SIZE } from 'src/constants/spots.constants';
 import { SpotsController } from './spots.controller';
 import { SpotsService } from './spots.service';
 

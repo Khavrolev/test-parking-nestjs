@@ -6,13 +6,13 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
-import { SPOT_SIZE } from 'src/constants/spots.constants';
-import { Transport } from 'src/models/transports.model';
 import { CreateSpotDto } from './dto/create-spot.dto';
 import { GetSpotDto } from './dto/get-spot.dto';
 import { DeleteSpotDto } from './dto/delete-spot.dto';
 import { UpdateSpotDto } from './dto/update-spot.dto';
 import { Spot } from '../models/spots.model';
+import { SPOT_SIZE } from '../constants/spots.constants';
+import { Transport } from '../models/transports.model';
 
 @Injectable()
 export class SpotsService {

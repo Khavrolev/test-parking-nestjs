@@ -4,12 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { TRANSPORT_SIZE } from 'src/constants/transports.constants';
-import { SpotsService } from 'src/spots/spots.service';
 import { RetrieveTransportDto } from './dto/retrieve-transport.dto';
 import { GetTransportDto } from './dto/get-transport.dto';
 import { ParkTransportDto } from './dto/park-transport.dto';
 import { Transport } from '../models/transports.model';
+import { SpotsService } from '../spots/spots.service';
+import { TRANSPORT_SIZE } from '../constants/transports.constants';
 
 @Injectable()
 export class TransportsService {

@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from 'class-validator';
-import { TransportType } from 'src/constants/transports.constants';
+import { TransportType } from '../../constants/transports.constants';
 
 export class ParkTransportDto {
   @IsEnum(TransportType)

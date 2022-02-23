@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SpotType } from 'src/constants/spots.constants';
-import { SpotsService } from 'src/spots/spots.service';
+import { SpotType } from '../constants/spots.constants';
+import { SpotsService } from '../spots/spots.service';
 
 const SPOTS_AMOUNT = {
   [SpotType.small]: 3,

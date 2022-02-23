@@ -1,5 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { Transport } from 'src/models/transports.model';
+import { Transport } from './transports.model';
 
 interface SpotCreationAttrs {
   size: number;
